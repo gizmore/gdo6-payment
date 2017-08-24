@@ -29,7 +29,7 @@ abstract class MethodPayment extends Method
 	
 	public function renderOrder(Order $order)
 	{
-		return Response::make($order->renderCard());
+		return $order->renderCard();
 	}
 	
 }
