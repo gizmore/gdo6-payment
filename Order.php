@@ -98,7 +98,7 @@ final class Order extends GDO
 	##############
 	public function renderCard()
 	{
-		return GDO_Template::php('Payment', 'card/order.php', ['gdo' => $this]);
+		return GDO_Template::responsePHP('Payment', 'card/order.php', ['gdo' => $this]);
 	}
 	
 	###############
