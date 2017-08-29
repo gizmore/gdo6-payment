@@ -3,9 +3,9 @@ namespace GDO\Payment;
 
 use GDO\Core\GDOError;
 use GDO\DB\GDO;
-use GDO\Form\GDO_Form;
+use GDO\Form\GDT_Form;
 use GDO\Form\MethodForm;
-use GDO\Template\GDO_Panel;
+use GDO\Template\GDT_Panel;
 use GDO\User\User;
 
 abstract class Payment_Order extends MethodForm
@@ -17,12 +17,12 @@ abstract class Payment_Order extends MethodForm
 	
 	public function isUserRequired() { return true; }
 	
-	public function formValidated(GDO_Form $form)
+	public function formValidated(GDT_Form $form)
 	{
 		return $this->initOrderable($form);
 	}
 	
-	public function initOrderable(GDO_Form $form=null)
+	public function initOrderable(GDT_Form $form=null)
 	{
 		$user = User::current();
 		$orderable = $this->getOrderable();
@@ -42,8 +42,8 @@ abstract class Payment_Order extends MethodForm
 	
 	public function renderOrderableForm(Orderable $orderable)
 	{
-		$form = new GDO_Form();
-		$form->addField(GDO_Panel::make('card')->html($orderable->renderCard())); 
+		$form = new GDT_Form();
+		$form->addField(GDT_Panel::make('card')->html($orderable->renderCard())); 
 		foreach (PaymentModule::allPaymentModules() as $module)
 		{
 			if ($orderable->canPayOrderWith($module))

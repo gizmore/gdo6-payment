@@ -1,10 +1,10 @@
 <?php
 namespace GDO\Payment;
 
-use GDO\DB\GDO_ObjectSelect;
+use GDO\DB\GDT_ObjectSelect;
 use GDO\Core\Module;
 
-class GDO_PaymentModule extends GDO_ObjectSelect
+class GDT_PaymentModule extends GDT_ObjectSelect
 {
     public function __construct()
     {

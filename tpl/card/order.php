@@ -1,5 +1,5 @@
 <?php
-use GDO\Payment\GDO_Money;
+use GDO\Payment\GDT_Money;
 use GDO\Payment\Order;
 
 $gdo instanceof Order;
@@ -16,7 +16,7 @@ $payment = $gdo->getPaymentModule();
   </md-card-title>
   <gdo-div></gdo-div>
   <md-card-content flex>
-    <div><?= t('price'); ?>: <?= GDO_Money::make()->value($gdo->getOrderable()->getOrderPrice())->renderCell(); ?></div>
+    <div><?= t('price'); ?>: <?= GDT_Money::make()->value($gdo->getOrderable()->getOrderPrice())->renderCell(); ?></div>
     <div><?= t('payment'); ?>: <?= html($payment->gdoHumanName()); ?></div>
     <div><?= t('payment_fee'); ?>: <?= html($payment->displayPaymentFee()); ?></div>
     <div><?= t('total'); ?>: <?= $gdo->displayPrice(); ?></div>

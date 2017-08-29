@@ -3,8 +3,8 @@ namespace GDO\Payment\Method;
 
 use GDO\Payment\Order;
 use GDO\Table\MethodQueryTable;
-use GDO\UI\GDO_Button;
-use GDO\UI\GDO_EditButton;
+use GDO\UI\GDT_Button;
+use GDO\UI\GDT_EditButton;
 /**
  * Table of orders for staff.
  * @author gizmore
@@ -22,7 +22,7 @@ final class Orders extends MethodQueryTable
 	{
 		$gdo = Order::table();
 		return array(
-			GDO_EditButton::make(),
+			GDT_EditButton::make(),
 			$gdo->gdoColumn('order_id'),
 			$gdo->gdoColumn('order_at'),
 			$gdo->gdoColumn('order_by'),
@@ -30,7 +30,7 @@ final class Orders extends MethodQueryTable
 			$gdo->gdoColumn('order_price'),
 			$gdo->gdoColumn('order_paid'),
 			$gdo->gdoColumn('order_executed'),
-			GDO_Button::make('view'),
+			GDT_Button::make('view'),
 		);
 	}
 }

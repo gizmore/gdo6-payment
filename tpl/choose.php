@@ -2,7 +2,7 @@
 use GDO\Payment\Order;
 use GDO\Payment\Orderable;
 use GDO\Payment\PaymentModule;
-use GDO\Template\GDO_Bar;
+use GDO\Template\GDT_Bar;
 use GDO\User\User;
 
 $user instanceof User;
@@ -14,6 +14,6 @@ echo $orderable->renderCard();
 
 echo $order->renderCard();
 
-$bar = GDO_Bar::make();
+$bar = GDT_Bar::make();
 $bar->addField($payment->makePaymentButton(href($payment->getName(), 'InitPayment')));
 echo $bar->renderCell();

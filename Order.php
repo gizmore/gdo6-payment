@@ -3,15 +3,15 @@ namespace GDO\Payment;
 
 use GDO\Core\Website;
 use GDO\DB\GDO;
-use GDO\DB\GDO_AutoInc;
-use GDO\DB\GDO_CreatedAt;
-use GDO\DB\GDO_CreatedBy;
-use GDO\Date\GDO_DateTime;
+use GDO\DB\GDT_AutoInc;
+use GDO\DB\GDT_CreatedAt;
+use GDO\DB\GDT_CreatedBy;
+use GDO\Date\GDT_DateTime;
 use GDO\Date\Time;
-use GDO\Template\GDO_Template;
+use GDO\Template\GDT_Template;
 use GDO\Template\Message;
-use GDO\Type\GDO_Serialize;
-use GDO\Type\GDO_String;
+use GDO\Type\GDT_Serialize;
+use GDO\Type\GDT_String;
 use GDO\User\User;
 use GDO\Core\ModuleLoader;
 /**
@@ -23,7 +23,7 @@ use GDO\Core\ModuleLoader;
  * @version 5.0
  * 
  * @see Orderable
- * @see GDO_Money
+ * @see GDT_Money
  * @see Currency
  * @see PaymentModule
  */
@@ -32,17 +32,17 @@ final class Order extends GDO
 	public function gdoColumns()
 	{
 		return array(
-			GDO_AutoInc::make('order_id'),
-			GDO_String::make('order_xtoken')->ascii()->caseS()->max(64),
-			GDO_String::make('order_title_en'),
-			GDO_String::make('order_title'),
-			GDO_Money::make('order_price'),
-			GDO_Serialize::make('order_item'),
-			GDO_PaymentModule::make('order_module')->editable(false),
-			GDO_CreatedBy::make('order_by'),
-			GDO_CreatedAt::make('order_at'),
-			GDO_DateTime::make('order_paid')->editable(false)->label('paid_at'),
-			GDO_DateTime::make('order_executed')->editable(false)->label('executed_at'),
+			GDT_AutoInc::make('order_id'),
+			GDT_String::make('order_xtoken')->ascii()->caseS()->max(64),
+			GDT_String::make('order_title_en'),
+			GDT_String::make('order_title'),
+			GDT_Money::make('order_price'),
+			GDT_Serialize::make('order_item'),
+			GDT_PaymentModule::make('order_module')->editable(false),
+			GDT_CreatedBy::make('order_by'),
+			GDT_CreatedAt::make('order_at'),
+			GDT_DateTime::make('order_paid')->editable(false)->label('paid_at'),
+			GDT_DateTime::make('order_executed')->editable(false)->label('executed_at'),
 		);
 	}
 	
@@ -98,7 +98,7 @@ final class Order extends GDO
 	##############
 	public function renderCard()
 	{
-		return GDO_Template::responsePHP('Payment', 'card/order.php', ['gdo' => $this]);
+		return GDT_Template::responsePHP('Payment', 'card/order.php', ['gdo' => $this]);
 	}
 	
 	###############

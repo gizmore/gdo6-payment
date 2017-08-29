@@ -2,8 +2,8 @@
 namespace GDO\Payment;
 
 use GDO\Core\Module;
-use GDO\Type\GDO_Decimal;
-use GDO\UI\GDO_Button;
+use GDO\Type\GDT_Decimal;
+use GDO\UI\GDT_Button;
 
 abstract class PaymentModule extends Module
 {
@@ -28,7 +28,7 @@ abstract class PaymentModule extends Module
 	public function getConfig()
 	{
 		return array(
-			GDO_Decimal::make('fee_buy')->digits(1, 4)->initial('0.0000'),
+			GDT_Decimal::make('fee_buy')->digits(1, 4)->initial('0.0000'),
 		);
 	}
 	
@@ -46,11 +46,11 @@ abstract class PaymentModule extends Module
 	
 	/**
 	 * @param string $href
-	 * @return GDO_Button
+	 * @return GDT_Button
 	 */
 	public function makePaymentButton(string $href)
 	{
-		return GDO_Button::make('buy_'.$this->getName())->href($href)->icon('attach_money');
+		return GDT_Button::make('buy_'.$this->getName())->href($href)->icon('attach_money');
 // 		return $this->templatePHP('button.php', ['href' => $href]);
 	}
 	

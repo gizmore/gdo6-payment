@@ -1,9 +1,9 @@
 <?php
 namespace GDO\Payment;
 
-use GDO\Type\GDO_Decimal;
+use GDO\Type\GDT_Decimal;
 
-class GDO_Money extends GDO_Decimal
+class GDT_Money extends GDT_Decimal
 {
 	public static $CURR = '€';
 	public static $CURRENCY = 'EUR';

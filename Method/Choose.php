@@ -11,7 +11,7 @@ use GDO\Payment\PaymentModule;
 use GDO\User\User;
 use GDO\Util\Common;
 use GDO\Core\ModuleLoader;
-use GDO\Type\GDO_Serialize;
+use GDO\Type\GDT_Serialize;
 /**
  * Step 1 – Choose a payment processor
  * @author gizmore
@@ -62,7 +62,7 @@ final class Choose extends Method
 			'order_title_en' => $this->orderable->getOrderTitle('en'),
 			'order_title' => $this->orderable->getOrderTitle(Trans::$ISO),
 			'order_price' => $this->paymentModule->getPrice($this->orderable->getOrderPrice()),
-			'order_item' => GDO_Serialize::serialize($this->orderable),
+			'order_item' => GDT_Serialize::serialize($this->orderable),
 			'order_module' => $this->paymentModule->getID(),
 		));
 		$this->user->tempSet('gwf_order', $this->order);
