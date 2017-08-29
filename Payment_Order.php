@@ -6,7 +6,7 @@ use GDO\DB\GDO;
 use GDO\Form\GDT_Form;
 use GDO\Form\MethodForm;
 use GDO\Template\GDT_Panel;
-use GDO\User\User;
+use GDO\User\GDO_User;
 
 abstract class Payment_Order extends MethodForm
 {
@@ -24,7 +24,7 @@ abstract class Payment_Order extends MethodForm
 	
 	public function initOrderable(GDT_Form $form=null)
 	{
-		$user = User::current();
+		$user = GDO_User::current();
 		$orderable = $this->getOrderable();
 		if (!($orderable instanceof GDO))
 		{
@@ -34,7 +34,7 @@ abstract class Payment_Order extends MethodForm
 		{
 			throw new GDOError('err_gdo_type', [$this->order->gdoClassName(), 'Orderable']);
 		}
-		$user->tempSet('gwf_orderable', $orderable);
+		$user->tempSet('gdo_orderable', $orderable);
 		$user->recache();
 		
 		return $this->renderOrderableForm($orderable);

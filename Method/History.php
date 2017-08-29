@@ -1,9 +1,9 @@
 <?php
 namespace GDO\Payment\Method;
 
-use GDO\Payment\Order;
+use GDO\Payment\GDO_Order;
 use GDO\Table\MethodQueryList;
-use GDO\User\User;
+use GDO\User\GDO_User;
 /**
  * Table of orders for staff.
  * @author gizmore
@@ -13,10 +13,10 @@ final class History extends MethodQueryList
 {
 	public function isUserRequired() { return true; }
 	
-	public function gdoTable() { return Order::table(); }
+	public function gdoTable() { return GDO_Order::table(); }
 	
 	public function getQuery()
 	{
-		return Order::table()->select()->where('order_by='.User::current()->getID());
+	    return GDO_Order::table()->select()->where('order_by='.GDO_User::current()->getID());
 	}
 }

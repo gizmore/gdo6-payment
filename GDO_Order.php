@@ -12,7 +12,7 @@ use GDO\Template\GDT_Template;
 use GDO\Template\Message;
 use GDO\Type\GDT_Serialize;
 use GDO\Type\GDT_String;
-use GDO\User\User;
+use GDO\User\GDO_User;
 use GDO\Core\ModuleLoader;
 /**
  * Serializes an orderable.
@@ -24,10 +24,10 @@ use GDO\Core\ModuleLoader;
  * 
  * @see Orderable
  * @see GDT_Money
- * @see Currency
+ * @see GDO_Currency
  * @see PaymentModule
  */
-final class Order extends GDO
+final class GDO_Order extends GDO
 {
 	public function gdoColumns()
 	{
@@ -48,15 +48,15 @@ final class Order extends GDO
 	
 	public function href_edit() { return href('Payment', 'Order', '&id='.$this->getID()); }
 	public function href_view() { return href('Payment', 'ViewOrder', '&id='.$this->getID()); }
-	public function href_failure() { return $this->getOrderable()->getOrderCancelURL(User::current()); }
-	public function href_success() { return $this->getOrderable()->getOrderSuccessURL(User::current()); }
+	public function href_failure() { return $this->getOrderable()->getOrderCancelURL(GDO_User::current()); }
+	public function href_success() { return $this->getOrderable()->getOrderSuccessURL(GDO_User::current()); }
 
 	public function redirectFailure() { return Website::redirectMessage($this->href_failure()); }
 	public function redirectSuccess() { return Website::redirectMessage($this->href_success()); }
 	
 	public function getCreator() { return $this->getValue('order_by'); }
 	public function getCreatorID() { return $this->getVar('order_by');  }
-	public function isCreator(User $user) { return $this->getCreatorID() === $user->getID(); }
+	public function isCreator(GDO_User $user) { return $this->getCreatorID() === $user->getID(); }
 	
 	public function getXToken() { return $this->getVar('order_xtoken'); }
 	public function isPaid() { return $this->getPaid() !== null; }

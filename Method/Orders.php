@@ -1,7 +1,7 @@
 <?php
 namespace GDO\Payment\Method;
 
-use GDO\Payment\Order;
+use GDO\Payment\GDO_Order;
 use GDO\Table\MethodQueryTable;
 use GDO\UI\GDT_Button;
 use GDO\UI\GDT_EditButton;
@@ -15,12 +15,12 @@ final class Orders extends MethodQueryTable
 	public function getPermission() { return 'staff'; }
 	public function getQuery()
 	{
-		return Order::table()->select();
+	    return GDO_Order::table()->select();
 	}
 	
 	public function getHeaders()
 	{
-		$gdo = Order::table();
+	    $gdo = GDO_Order::table();
 		return array(
 			GDT_EditButton::make(),
 			$gdo->gdoColumn('order_id'),

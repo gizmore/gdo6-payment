@@ -1,11 +1,11 @@
 <?php
 namespace GDO\Payment;
 
-use GDO\Core\Module;
+use GDO\Core\GDO_Module;
 use GDO\Type\GDT_Decimal;
 use GDO\UI\GDT_Button;
 
-abstract class PaymentModule extends Module
+abstract class PaymentModule extends GDO_Module
 {
 	/**
 	 * @var PaymentModule[]
@@ -54,7 +54,7 @@ abstract class PaymentModule extends Module
 // 		return $this->templatePHP('button.php', ['href' => $href]);
 	}
 	
-	public function renderOrderFragment(Order $order)
+	public function renderOrderFragment(GDO_Order $order)
 	{
 		return '';
 	}

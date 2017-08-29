@@ -2,12 +2,12 @@
 namespace GDO\Payment;
 
 use GDO\Template\Response;
-use GDO\User\User;
+use GDO\User\GDO_User;
 
 interface Orderable
 {
-	public function getOrderCancelURL(User $user);
-	public function getOrderSuccessURL(User $user);
+	public function getOrderCancelURL(GDO_User $user);
+	public function getOrderSuccessURL(GDO_User $user);
 
 	public function getOrderTitle(string $iso);
 	public function getOrderPrice();

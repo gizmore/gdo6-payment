@@ -1,14 +1,13 @@
 <?php
 namespace GDO\Payment\Method;
 
-use GDO\Core\Application;
 use GDO\Core\Method;
 use GDO\DB\GDO;
 use GDO\Language\Trans;
-use GDO\Payment\Order;
+use GDO\Payment\GDO_Order;
 use GDO\Payment\Orderable;
 use GDO\Payment\PaymentModule;
-use GDO\User\User;
+use GDO\User\GDO_User;
 use GDO\Util\Common;
 use GDO\Core\ModuleLoader;
 use GDO\Type\GDT_Serialize;
@@ -34,7 +33,7 @@ final class Choose extends Method
 	private $paymentModule;
 	
 	/**
-	 * @var Order
+	 * @var GDO_Order
 	 */
 	private $order;
 	
@@ -43,12 +42,12 @@ final class Choose extends Method
 	 */
 	public function getOrderable()
 	{
-		return User::current()->tempGet('gwf_orderable');
+		return GDO_User::current()->tempGet('gdo_orderable');
 	}
 	
 	public function execute()
 	{
-		$this->user = User::current();
+		$this->user = GDO_User::current();
 		if (!($this->orderable = $this->getOrderable()))
 		{
 			return $this->error('err_orderable');
@@ -58,14 +57,14 @@ final class Choose extends Method
 		{
 			return $this->error('err_module', [html($moduleName)]);
 		}
-		$this->order = Order::blank(array(
+		$this->order = GDO_Order::blank(array(
 			'order_title_en' => $this->orderable->getOrderTitle('en'),
 			'order_title' => $this->orderable->getOrderTitle(Trans::$ISO),
 			'order_price' => $this->paymentModule->getPrice($this->orderable->getOrderPrice()),
 			'order_item' => GDT_Serialize::serialize($this->orderable),
 			'order_module' => $this->paymentModule->getID(),
 		));
-		$this->user->tempSet('gwf_order', $this->order);
+		$this->user->tempSet('gdo_order', $this->order);
 		$this->user->recache();
 		
 		$tVars = array(

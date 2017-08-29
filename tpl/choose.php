@@ -1,14 +1,14 @@
 <?php
-use GDO\Payment\Order;
+use GDO\Payment\GDO_Order;
 use GDO\Payment\Orderable;
 use GDO\Payment\PaymentModule;
 use GDO\Template\GDT_Bar;
-use GDO\User\User;
+use GDO\User\GDO_User;
 
-$user instanceof User;
+$user instanceof GDO_User;
 $orderable instanceof Orderable;
 $payment instanceof PaymentModule;
-$order instanceof Order;
+$order instanceof GDO_Order;
 
 echo $orderable->renderCard();
 

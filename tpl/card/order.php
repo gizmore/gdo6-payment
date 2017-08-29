@@ -1,8 +1,8 @@
 <?php
 use GDO\Payment\GDT_Money;
-use GDO\Payment\Order;
+use GDO\Payment\GDO_Order;
 
-$gdo instanceof Order;
+$gdo instanceof GDO_Order;
 $payment = $gdo->getPaymentModule();
 ?>
 <md-card class="gdo-downloadtoken">

@@ -2,13 +2,13 @@
 namespace GDO\Payment;
 
 use GDO\DB\GDT_ObjectSelect;
-use GDO\Core\Module;
+use GDO\Core\GDO_Module;
 
 class GDT_PaymentModule extends GDT_ObjectSelect
 {
     public function __construct()
     {
-        $this->table(Module::table());
+        $this->table(GDO_Module::table());
     }
 	
 	public function initChoices()
