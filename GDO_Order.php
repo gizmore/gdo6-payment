@@ -65,7 +65,7 @@ final class GDO_Order extends GDO
 	public function getExecuted() { return $this->getVar('order_executed'); }
 	
 	/**
-	 * @return User
+	 * @return GDO_User
 	 */
 	public function getUser()
 	{
