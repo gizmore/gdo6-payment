@@ -110,7 +110,9 @@ final class GDO_Order extends GDO
 		$orderable = $this->getOrderable();
 		
 		$response = $orderable->onOrderPaid();
+
 		$this->saveVar('order_executed', Time::getDate());
+		$this->saveValue('order_item', $orderable);
 		
 		return Message::message('msg_order_execute')->add($response)->add($this->redirectSuccess());
 	}
