@@ -2,7 +2,7 @@
 namespace GDO\Payment\Method;
 
 use GDO\Core\Method;
-use GDO\DB\GDO;
+use GDO\Core\GDO;
 use GDO\Language\Trans;
 use GDO\Payment\GDO_Order;
 use GDO\Payment\Orderable;

@@ -2,7 +2,7 @@
 namespace GDO\Payment;
 
 use GDO\Core\GDOError;
-use GDO\DB\GDO;
+use GDO\Core\GDO;
 use GDO\Form\GDT_Form;
 use GDO\Form\MethodForm;
 use GDO\Template\GDT_Panel;
