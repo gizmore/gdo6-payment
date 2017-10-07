@@ -5,7 +5,7 @@ use GDO\Core\GDOError;
 use GDO\Core\GDO;
 use GDO\Form\GDT_Form;
 use GDO\Form\MethodForm;
-use GDO\Template\GDT_Panel;
+use GDO\UI\GDT_Panel;
 use GDO\User\GDO_User;
 
 abstract class Payment_Order extends MethodForm

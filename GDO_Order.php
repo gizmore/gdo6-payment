@@ -8,12 +8,13 @@ use GDO\DB\GDT_CreatedAt;
 use GDO\DB\GDT_CreatedBy;
 use GDO\Date\GDT_DateTime;
 use GDO\Date\Time;
-use GDO\Template\GDT_Template;
-use GDO\Template\Message;
-use GDO\Type\GDT_Serialize;
-use GDO\Type\GDT_String;
+use GDO\Core\GDT_Template;
+use GDO\Core\GDT_Serialize;
+use GDO\DB\GDT_String;
 use GDO\User\GDO_User;
 use GDO\Core\ModuleLoader;
+use GDO\UI\GDT_Message;
+use GDO\Core\GDT_Success;
 /**
  * Serializes an orderable.
  * Stores price and item description.
@@ -114,6 +115,6 @@ final class GDO_Order extends GDO
 		$this->saveVar('order_executed', Time::getDate());
 		$this->saveValue('order_item', $orderable);
 		
-		return Message::message('msg_order_execute')->add($response)->add($this->redirectSuccess());
+		return GDT_Success::responseWith('msg_order_execute')->add($response)->add($this->redirectSuccess());
 	}
 }

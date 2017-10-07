@@ -3,7 +3,7 @@ namespace GDO\Payment;
 
 use GDO\Core\Method;
 use GDO\User\GDO_User;
-use GDO\Template\Response;
+use GDO\Core\GDT_Response;
 
 abstract class MethodPayment extends Method
 {

@@ -2,7 +2,7 @@
 use GDO\Payment\GDO_Order;
 use GDO\Payment\Orderable;
 use GDO\Payment\PaymentModule;
-use GDO\Template\GDT_Bar;
+use GDO\UI\GDT_Bar;
 use GDO\User\GDO_User;
 
 $user instanceof GDO_User;

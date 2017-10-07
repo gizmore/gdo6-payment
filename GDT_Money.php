@@ -1,7 +1,7 @@
 <?php
 namespace GDO\Payment;
 
-use GDO\Type\GDT_Decimal;
+use GDO\DB\GDT_Decimal;
 
 class GDT_Money extends GDT_Decimal
 {

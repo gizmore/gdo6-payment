@@ -1,7 +1,7 @@
 <?php
 namespace GDO\Payment;
 
-use GDO\Template\Response;
+use GDO\Core\GDT_Response;
 use GDO\User\GDO_User;
 
 interface Orderable
@@ -9,13 +9,13 @@ interface Orderable
 	public function getOrderCancelURL(GDO_User $user);
 	public function getOrderSuccessURL(GDO_User $user);
 
-	public function getOrderTitle(string $iso);
+	public function getOrderTitle($iso);
 	public function getOrderPrice();
 
 	public function canPayOrderWith(PaymentModule $module);
 	
 	/**
-	 * @return Response
+	 * @return GDT_Response
 	 */
 	public function onOrderPaid();
 }

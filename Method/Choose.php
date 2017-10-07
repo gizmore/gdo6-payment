@@ -10,7 +10,7 @@ use GDO\Payment\PaymentModule;
 use GDO\User\GDO_User;
 use GDO\Util\Common;
 use GDO\Core\ModuleLoader;
-use GDO\Type\GDT_Serialize;
+use GDO\Core\GDT_Serialize;
 /**
  * Step 1 – Choose a payment processor
  * @author gizmore
