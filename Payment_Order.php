@@ -7,6 +7,7 @@ use GDO\Form\GDT_Form;
 use GDO\Form\MethodForm;
 use GDO\UI\GDT_Panel;
 use GDO\User\GDO_User;
+use GDO\UI\WithHTML;
 
 abstract class Payment_Order extends MethodForm
 {
@@ -43,7 +44,7 @@ abstract class Payment_Order extends MethodForm
 	public function renderOrderableForm(Orderable $orderable)
 	{
 		$form = new GDT_Form();
-		$form->addField(GDT_Panel::make('card')->html($orderable->renderCard())); 
+		$form->addField(GDT_Panel::withHTML($orderable->renderCard())); 
 		foreach (PaymentModule::allPaymentModules() as $module)
 		{
 			if ($orderable->canPayOrderWith($module))

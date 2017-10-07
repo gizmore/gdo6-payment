@@ -16,4 +16,4 @@ echo $order->renderCard();
 
 $bar = GDT_Bar::make();
 $bar->addField($payment->makePaymentButton(href($payment->getName(), 'InitPayment')));
-echo $bar->renderCell();
+echo $bar->render();
