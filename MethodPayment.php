@@ -29,7 +29,7 @@ abstract class MethodPayment extends Method
 	
 	public function renderOrder(GDO_Order $order)
 	{
-		return $order->renderCard();
+		return $order->responseCard();
 	}
 	
 }

@@ -8,6 +8,7 @@ use GDO\Form\MethodForm;
 use GDO\UI\GDT_Panel;
 use GDO\User\GDO_User;
 use GDO\UI\WithHTML;
+use GDO\Core\GDT_Response;
 
 abstract class Payment_Order extends MethodForm
 {
@@ -52,7 +53,7 @@ abstract class Payment_Order extends MethodForm
 				$form->addField($module->makePaymentButton(href('Payment', 'Choose', '&payment='.$module->getName())));
 			}
 		}
-		return $form->render();
+		return GDT_Response::makeWith($form);
 	}
 	
 }

@@ -50,7 +50,7 @@ abstract class PaymentModule extends GDO_Module
 	 */
 	public function makePaymentButton($href)
 	{
-		return GDT_Button::make('buy_'.$this->getName())->href($href)->icon('attach_money');
+		return GDT_Button::make('buy_'.$this->getName())->href($href)->icon('money');
 // 		return $this->templatePHP('button.php', ['href' => $href]);
 	}
 	
