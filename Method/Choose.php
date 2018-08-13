@@ -18,7 +18,7 @@ use GDO\Core\GDT_Serialize;
 final class Choose extends Method
 {
 	/**
-	 * @var User
+	 * @var GDO_User
 	 */
 	private $user;
 	
