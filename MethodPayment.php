@@ -16,7 +16,7 @@ abstract class MethodPayment extends Method
 	{
 		if ($this->order = GDO_User::current()->tempGet('gdo_order'))
 		{
-		    if ($this->order instanceof GDO_Order)
+			if ($this->order instanceof GDO_Order)
 			{
 				if (!$this->order->isPersisted())
 				{

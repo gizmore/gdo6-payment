@@ -15,12 +15,12 @@ final class Orders extends MethodQueryTable
 	public function getPermission() { return 'staff'; }
 	public function getQuery()
 	{
-	    return GDO_Order::table()->select();
+		return GDO_Order::table()->select();
 	}
 	
 	public function getHeaders()
 	{
-	    $gdo = GDO_Order::table();
+		$gdo = GDO_Order::table();
 		return array(
 			GDT_EditButton::make(),
 			$gdo->gdoColumn('order_id'),

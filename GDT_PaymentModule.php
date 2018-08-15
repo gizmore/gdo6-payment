@@ -6,10 +6,10 @@ use GDO\Core\GDO_Module;
 
 class GDT_PaymentModule extends GDT_ObjectSelect
 {
-    public function __construct()
-    {
-        $this->table(GDO_Module::table());
-    }
+	public function __construct()
+	{
+		$this->table(GDO_Module::table());
+	}
 	
 	public function initChoices()
 	{

@@ -17,6 +17,6 @@ final class History extends MethodQueryList
 	
 	public function getQuery()
 	{
-	    return GDO_Order::table()->select()->where('order_by='.GDO_User::current()->getID());
+		return GDO_Order::table()->select()->where('order_by='.GDO_User::current()->getID());
 	}
 }
