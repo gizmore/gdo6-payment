@@ -15,6 +15,7 @@ use GDO\User\GDO_User;
 use GDO\Core\ModuleLoader;
 use GDO\UI\GDT_Message;
 use GDO\Core\GDT_Success;
+use GDO\Date\GDT_Timestamp;
 /**
  * Serializes an orderable.
  * Stores price and item description.
