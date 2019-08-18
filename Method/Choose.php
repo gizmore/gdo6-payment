@@ -11,6 +11,7 @@ use GDO\User\GDO_User;
 use GDO\Util\Common;
 use GDO\Core\ModuleLoader;
 use GDO\Core\GDT_Serialize;
+use GDO\User\GDO_Session;
 /**
  * Step 1 – Choose a payment processor
  * @author gizmore
@@ -42,7 +43,8 @@ final class Choose extends Method
 	 */
 	public function getOrderable()
 	{
-		return GDO_User::current()->tempGet('gdo_orderable');
+		return GDO_Session::get('gdo_orderable');
+// 		return GDO_User::current()->tempGet('gdo_orderable');
 	}
 	
 	public function execute()
@@ -64,8 +66,10 @@ final class Choose extends Method
 			'order_item' => GDT_Serialize::serialize($this->orderable),
 			'order_module' => $this->paymentModule->getID(),
 		));
-		$this->user->tempSet('gdo_order', $this->order);
-		$this->user->recache();
+		
+		GDO_Session::set('gdo_order', $this->order);
+// 		$this->user->tempSet('gdo_order', $this->order);
+// 		$this->user->recache();
 		
 		$tVars = array(
 			'user' => $this->user,

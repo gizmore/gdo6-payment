@@ -2,8 +2,7 @@
 namespace GDO\Payment;
 
 use GDO\Core\Method;
-use GDO\User\GDO_User;
-use GDO\Core\GDT_Response;
+use GDO\User\GDO_Session;
 
 abstract class MethodPayment extends Method
 {
@@ -14,7 +13,8 @@ abstract class MethodPayment extends Method
 	 */
 	public function getOrderPersisted()
 	{
-		if ($this->order = GDO_User::current()->tempGet('gdo_order'))
+// 		if ($this->order = GDO_User::current()->tempGet('gdo_order'))
+		if ($this->order = GDO_Session::get('gdo_order'))
 		{
 			if ($this->order instanceof GDO_Order)
 			{
