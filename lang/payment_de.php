@@ -12,4 +12,7 @@ return array(
 'total' => 'Gesamtsumme',
 #############################################################
 'msg_order_execute' => 'Ihre Bestellung wurde erfolgreich ausgeführt.',
+#############################################################
+'ft_payment_order' => 'Bestellung',
+'btn_execute' => 'Ausführen',
 );

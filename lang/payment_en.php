@@ -12,4 +12,7 @@ return array(
 'total' => 'Total',
 #############################################################
 'msg_order_execute' => 'Your order has been executed successfully.',
+#############################################################
+'ft_payment_order' => 'Order',
+'btn_execute' => 'Execute',
 );
