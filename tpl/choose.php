@@ -10,7 +10,7 @@ $orderable instanceof Orderable;
 $payment instanceof PaymentModule;
 $order instanceof GDO_Order;
 
-echo $orderable->renderCard();
+// echo $orderable->renderOrderCard();
 
 echo $order->renderCard();
 

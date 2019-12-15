@@ -8,6 +8,7 @@ use GDO\Form\MethodForm;
 use GDO\UI\GDT_Panel;
 use GDO\Core\GDT_Response;
 use GDO\User\GDO_Session;
+use GDO\Core\GDT_Hook;
 
 abstract class Payment_Order extends MethodForm
 {
@@ -16,7 +17,20 @@ abstract class Payment_Order extends MethodForm
 	 */
 	public abstract function getOrderable();
 	
+// 	public abstract function cancelOrder();
+	
 	public function isUserRequired() { return true; }
+	
+	public function execute()
+	{
+// 		if (isset($_REQUEST['cancel']))
+// 		{
+// 			GDT_Hook::callHook('CancelOrder');
+// // 			$this->cancelOrder();
+// 			return $this->message('msg_order_cancelled');
+// 		}
+		return parent::execute();
+	}
 	
 	public function formValidated(GDT_Form $form)
 	{
@@ -46,7 +60,7 @@ abstract class Payment_Order extends MethodForm
 	public function renderOrderableForm(Orderable $orderable)
 	{
 		$form = new GDT_Form();
-		$form->addField(GDT_Panel::withHTML($orderable->renderCard())); 
+		$form->addField(); 
 		foreach (PaymentModule::allPaymentModules() as $module)
 		{
 			if ($orderable->canPayOrderWith($module))
@@ -54,7 +68,7 @@ abstract class Payment_Order extends MethodForm
 				$form->addField($module->makePaymentButton(href('Payment', 'Choose', '&payment='.$module->getName())));
 			}
 		}
-		return GDT_Response::makeWith($form);
+		return GDT_Response::makeWith(GDT_Panel::withHTML($orderable->renderCard()))->add(GDT_Response::makeWith($form));
 	}
 	
 }

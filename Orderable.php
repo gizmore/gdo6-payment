@@ -14,6 +14,8 @@ interface Orderable
 
 	public function canPayOrderWith(PaymentModule $module);
 	
+	public function renderOrderCard();
+	
 	/**
 	 * @return GDT_Response
 	 */

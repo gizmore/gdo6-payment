@@ -1,5 +1,8 @@
 <?php
 return array(
+'order_title' => 'Bestelltitel',
+'paid_at' => 'Bezahlt am',
+'executed_at' => 'Ausgeführt am',
 #############################################################
 'price' => 'Preis',
 #############################################################
@@ -15,4 +18,6 @@ return array(
 #############################################################
 'ft_payment_order' => 'Bestellung',
 'btn_execute' => 'Ausführen',
+#############################################################
+'link_your_orders' => 'Ihre Bestellungen',
 );

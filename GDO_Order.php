@@ -57,8 +57,12 @@ final class GDO_Order extends GDO
 	public function redirectFailure() { return Website::redirectMessage($this->href_failure()); }
 	public function redirectSuccess() { return Website::redirectMessage($this->href_success()); }
 	
+	/**
+	 * @return GDO_User
+	 */
 	public function getCreator() { return $this->getValue('order_by'); }
 	public function getCreatorID() { return $this->getVar('order_by');  }
+	
 	public function isCreator(GDO_User $user) { return $this->getCreatorID() === $user->getID(); }
 	
 	public function getXToken() { return $this->getVar('order_xtoken'); }
@@ -67,12 +71,14 @@ final class GDO_Order extends GDO
 	public function isExecuted() { return $this->getExecuted() !== null; }
 	public function getExecuted() { return $this->getVar('order_executed'); }
 	
+	public function getCreated() { return $this->getVar('order_at'); }
+	
 	/**
 	 * @return GDO_User
 	 */
 	public function getUser()
 	{
-		return $this->getValue('order_by');
+		return $this->getCreator();
 	}
 	
 	/**

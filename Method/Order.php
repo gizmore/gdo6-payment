@@ -12,6 +12,8 @@ use GDO\Date\Time;
 
 final class Order extends MethodForm
 {
+	public function getPermission() { return 'staff'; }
+	
 	public function gdoParameters()
 	{
 		return array(
