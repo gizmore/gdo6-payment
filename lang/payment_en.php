@@ -19,6 +19,6 @@ return array(
 'ft_payment_order' => 'Order',
 'btn_execute' => 'Execute',
 #############################################################
-'link_your_orders' => 'Your orders',
-
+	'link_your_orders' => 'Your orders',
+	'link_orders' => 'Orders',
 );
