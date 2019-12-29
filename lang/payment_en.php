@@ -22,4 +22,5 @@ return array(
 'link_your_orders' => 'Your orders',
 'link_orders' => 'Orders',
 'btn_order' => 'Bestellen',
+'err_order_pending' => 'Your payment is still pending.',
 );

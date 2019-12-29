@@ -22,4 +22,5 @@ return array(
 'link_your_orders' => 'Vostri ordini',
 'link_orders' => 'Ordini',
 'btn_order' => 'Ordine',
+'err_order_pending' => 'Ihre Zahlung ist weiterhin ausstehend.',
 );
