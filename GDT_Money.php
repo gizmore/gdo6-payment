@@ -15,10 +15,12 @@ class GDT_Money extends GDT_Decimal
 	
 	public function renderCell()
 	{
-		if (null === ($value = $this->getValue()))
-		{
-			return '---';
-		}
-		return sprintf('%s%.02f', self::$CURR, $value);
+		return self::renderPrice($this->getValue());
 	}
+	
+	public static function renderPrice($price)
+	{
+		return $price === null ? '---' : sprintf('%s%.02f', self::$CURR, $price);
+	}
+	
 }

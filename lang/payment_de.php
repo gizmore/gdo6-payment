@@ -21,4 +21,5 @@ return array(
 #############################################################
 'link_your_orders' => 'Ihre Bestellungen',
 'link_orders' => 'Bestellungen',
+'btn_order' => 'Bestellen',
 );

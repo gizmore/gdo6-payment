@@ -20,4 +20,6 @@ return array(
 'btn_execute' => 'Effettuare',
 #############################################################
 'link_your_orders' => 'Vostri ordini',
+'link_orders' => 'Ordini',
+'btn_order' => 'Ordine',
 );
