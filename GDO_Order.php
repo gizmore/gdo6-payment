@@ -115,7 +115,7 @@ final class GDO_Order extends GDO
 	###############
 	public function executeOrder()
 	{
-		$user = $this->getUser();
+// 		$user = $this->getUser();
 		$orderable = $this->getOrderable();
 		
 		$response = $orderable->onOrderPaid();
