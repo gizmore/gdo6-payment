@@ -12,6 +12,7 @@ use GDO\Util\Common;
 use GDO\Core\ModuleLoader;
 use GDO\Core\GDT_Serialize;
 use GDO\User\GDO_Session;
+use GDO\Payment\Module_Payment;
 /**
  * Step 1 – Choose a payment processor
  * @author gizmore
@@ -62,7 +63,8 @@ final class Choose extends Method
 		$this->order = GDO_Order::blank(array(
 			'order_title_en' => $this->orderable->getOrderTitle('en'),
 			'order_title' => $this->orderable->getOrderTitle(Trans::$ISO),
-			'order_price' => $this->paymentModule->getPrice($this->orderable->getOrderPrice()),
+			'order_price' => $this->paymentModule->getPrice($this->orderable->getOrderPrice(), $this->orderable->isPriceWithTax()),
+			'order_price_tax' => Module_Payment::instance()->cfgTax(),
 			'order_item' => GDT_Serialize::serialize($this->orderable),
 			'order_module' => $this->paymentModule->getID(),
 		));

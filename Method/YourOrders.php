@@ -21,6 +21,7 @@ final class YourOrders extends MethodQueryTable
 		return array(
 // 			GDT_EditButton::make(),
 			$gdo->gdoColumn('order_id'),
+			GDT_Button::make('pdf')->label('btn_pdf_bill'),
 			$gdo->gdoColumn('order_at'),
 			$gdo->gdoColumn('order_title'),
 			$gdo->gdoColumn('order_price'),

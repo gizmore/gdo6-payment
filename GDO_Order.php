@@ -13,17 +13,16 @@ use GDO\Core\GDT_Serialize;
 use GDO\DB\GDT_String;
 use GDO\User\GDO_User;
 use GDO\Core\ModuleLoader;
-use GDO\UI\GDT_Message;
 use GDO\Core\GDT_Success;
-use GDO\Date\GDT_Timestamp;
 use GDO\User\GDO_Session;
+use GDO\DB\GDT_Decimal;
 /**
  * Serializes an orderable.
  * Stores price and item description.
  * 
  * @author gizmore
  * @since 3.0
- * @version 5.0
+ * @version 6.10
  * 
  * @see Orderable
  * @see GDT_Money
@@ -40,6 +39,7 @@ final class GDO_Order extends GDO
 			GDT_String::make('order_title_en'),
 			GDT_String::make('order_title'),
 			GDT_Money::make('order_price'),
+			GDT_Decimal::make('order_price_tax'),
 			GDT_Serialize::make('order_item'),
 			GDT_PaymentModule::make('order_module')->editable(false),
 			GDT_CreatedBy::make('order_by'),
@@ -53,6 +53,7 @@ final class GDO_Order extends GDO
 	public function href_view() { return href('Payment', 'ViewOrder', '&id='.$this->getID()); }
 	public function href_failure() { return $this->getOrderable()->getOrderCancelURL(GDO_User::current()); }
 	public function href_success() { return $this->getOrderable()->getOrderSuccessURL(GDO_User::current()); }
+	public function href_pdf() { return href('Payment', 'PDFBill', '&id='.$this->getID()); }
 
 	public function redirectFailure() { return Website::redirectMessage($this->href_failure()); }
 	public function redirectSuccess() { return Website::redirectMessage($this->href_success()); }
@@ -68,11 +69,18 @@ final class GDO_Order extends GDO
 	public function getXToken() { return $this->getVar('order_xtoken'); }
 	public function isPaid() { return $this->getPaid() !== null; }
 	public function getPaid() { return $this->getVar('order_paid'); }
-	public function isExecuted() { return $this->getExecuted() !== null; }
-	public function getExecuted() { return $this->getVar('order_executed'); }
-	
 	public function getCreated() { return $this->getVar('order_at'); }
-	
+	public function getCreatedTime() { return Time::getTimestamp($this->getCreated()); }
+	public function displayOrderedAt() { return Time::displayDate($this->getCreated(), 'day'); }
+	public function getExecuted() { return $this->getVar('order_executed'); }
+	public function displayExecutedAt() { return Time::displayDate($this->getExecuted(), 'day'); }
+	public function isExecuted() { return $this->getExecuted() !== null; }
+
+	public function getPayTime() { return Module_Payment::instance()->cfgPayTime(); }
+	public function getPayMaxTime() { return $this->getCreatedTime() + $this->getPayTime(); }
+	public function getPayMaxDate() { return Time::getDate($this->getPayMaxTime()); }
+	public function displayPayMaxDate() { return Time::displayDate($this->getPayMaxDate(), 'day'); }
+
 	/**
 	 * @return GDO_User
 	 */
@@ -99,8 +107,20 @@ final class GDO_Order extends GDO
 	
 	public function getPrice() { return $this->getVar('order_price'); }
 	public function displayPrice() { return $this->gdoColumn('order_price')->renderCell(); }
+	public function displayPriceNetto() { return $this->displayMoney($this->getPriceNetto()); }
 	public function getTitle() { return $this->getVar('order_title'); }
 	public function getTitleEN() { return $this->getVar('order_title_en'); }
+	
+	public function getTax() { return $this->getValue('order_price_tax'); }
+	public function getTaxFactor() { return $this->getTax() / 100.0; }
+	public function getPriceBrutto() { return $this->getPrice(); }
+	public function getPriceMWST() { return $this->getPriceBrutto() - $this->getPriceNetto(); }
+	public function getPriceNetto() { return $this->getPriceBrutto() / (1.0 + $this->getTaxFactor()); }
+	
+	public function displayMoney($price)
+	{
+		return $this->gdoColumnCopy('order_price')->val($price)->renderCell();
+	}
 	
 	##############
 	### Render ###
@@ -108,6 +128,11 @@ final class GDO_Order extends GDO
 	public function renderCard()
 	{
 		return GDT_Template::php('Payment', 'card/order.php', ['gdo' => $this]);
+	}
+	
+	public function renderPDF()
+	{
+		return GDT_Template::php('Payment', 'card/order_pdf.php', ['gdo' => $this]);
 	}
 	
 	###############

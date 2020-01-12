@@ -3,6 +3,7 @@ namespace GDO\Payment;
 
 use GDO\Core\GDO_Module;
 use GDO\DB\GDT_Decimal;
+use GDO\Date\Time;
 use GDO\UI\GDT_Button;
 
 abstract class PaymentModule extends GDO_Module
@@ -34,9 +35,15 @@ abstract class PaymentModule extends GDO_Module
 	
 	public function cfgFeeBuy() { return $this->getConfigValue('fee_buy'); }
 	
-	public function getPrice($price)
+	public function getPrice($price, $isWithTax=true)
 	{
-		return round(($this->cfgFeeBuy() + 1.00) * floatval($price), 2);
+		$price = round(($this->cfgFeeBuy() + 1.00) * floatval($price), 2);
+		if (!$isWithTax)
+		{
+			$mwst = Module_Payment::instance()->cfgTaxFactor();
+			$price += $price * $mwst;
+		}
+		return $price;
 	}
 	
 	public function displayPaymentFee()
@@ -58,4 +65,26 @@ abstract class PaymentModule extends GDO_Module
 	{
 		return '';
 	}
+	
+	public function getFooterHTML()
+	{
+		return '';
+	}
+	
+	public function displayPaymentMethodName()
+	{
+		return t('payment_'.strtolower($this->getName()));
+	}
+	
+	/**
+	 * Verwendungszweck / Transfer usage
+	 * @param GDO_Order $order
+	 * @return string
+	 */
+	public function getTransferPurpose(GDO_Order $order)
+	{
+		$year = Time::getYear($order->getCreated());
+		return sprintf('%s-%s-%09d', sitename(), $year, $order->getID());
+	}
+	
 }

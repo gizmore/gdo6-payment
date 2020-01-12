@@ -6,6 +6,8 @@ use GDO\User\GDO_User;
 
 interface Orderable
 {
+	public function isPriceWithTax();
+	
 	public function getOrderCancelURL(GDO_User $user);
 	public function getOrderSuccessURL(GDO_User $user);
 
