@@ -6,15 +6,15 @@ if (!function_exists('th'))
 {
 	function th($text, $width)
 	{
-		return sprintf('<th style="width: %s%%; height: 24px; line-height: 20px; border: 1px solid #000; background-color: #aaf;">&nbsp;%s&nbsp;</th>', $width, html($text));
+		return sprintf('<th style="width: %s%%; height: 24px; line-height: 20px; border: 1px solid #333; background-color: #aaf;">%s</th>', $width, html($text));
 	}
 	function td($text, $align="left")
 	{
-		return sprintf('<td style="height: 24px; line-height: 22px; border: 1px solid #000; background-color: #fff; text-align: %s;">&nbsp;%s&nbsp; </td>', $align, $text);
+		return sprintf('<td style="height: 24px; line-height: 22px; border: 1px solid #333; background-color: #fff; text-align: %s;">%s</td>', $align, $text);
 	}
 	function td2($text, $align="right")
 	{
-		return sprintf('<td style="height: 24px; line-height: 22px; background-color: #fff; text-align: %s;">&nbsp;%s&nbsp; </td>', $align, $text);
+		return sprintf('<td style="height: 24px; line-height: 22px; border-right: 1px solid #333; background-color: #fff; text-align: %s;">%s</td>', $align, $text);
 	}
 	function b($text)
 	{

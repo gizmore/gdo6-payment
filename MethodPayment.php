@@ -6,6 +6,11 @@ use GDO\User\GDO_Session;
 
 abstract class MethodPayment extends Method
 {
+	/**
+	 * @var GDO_Order
+	 */
+	private $order;
+	
 	public function isAlwaysTransactional() { return true; }
 	
 	/**
@@ -14,6 +19,12 @@ abstract class MethodPayment extends Method
 	public function getOrder()
 	{
 		return GDO_Session::get('gdo_order');
+	}
+	
+	public function setOrder(GDO_Order $order)
+	{
+		GDO_Session::set('gdo_order', $order);
+		$this->order = $order;
 	}
 
 	/**
@@ -28,7 +39,7 @@ abstract class MethodPayment extends Method
 				if (!$this->order->isPersisted())
 				{
 					$this->order->insert();
-					GDO_Session::set('gdo_order', $this->order);
+					$this->setOrder($this->order);
 				}
 			}
 		}

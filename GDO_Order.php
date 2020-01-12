@@ -14,8 +14,10 @@ use GDO\DB\GDT_String;
 use GDO\User\GDO_User;
 use GDO\Core\ModuleLoader;
 use GDO\Core\GDT_Success;
-use GDO\User\GDO_Session;
 use GDO\DB\GDT_Decimal;
+use GDO\DB\GDT_UInt;
+use GDO\Address\GDT_Address;
+use GDO\Address\GDO_Address;
 /**
  * Serializes an orderable.
  * Stores price and item description.
@@ -35,17 +37,20 @@ final class GDO_Order extends GDO
 	{
 		return array(
 			GDT_AutoInc::make('order_id'),
-			GDT_String::make('order_xtoken')->ascii()->caseS()->max(64),
-			GDT_String::make('order_title_en'),
+			GDT_UInt::make('order_num'),
+			GDT_CreatedBy::make('order_by'),
 			GDT_String::make('order_title'),
+			GDT_String::make('order_title_en')->label('order_title'),
+			GDT_PaymentModule::make('order_module')->editable(false),
+			GDT_String::make('order_xtoken')->ascii()->caseS()->max(64),
+			GDT_Address::make('order_address'),
+			GDT_CreatedAt::make('order_at'),
 			GDT_Money::make('order_price'),
 			GDT_Decimal::make('order_price_tax'),
-			GDT_Serialize::make('order_item'),
-			GDT_PaymentModule::make('order_module')->editable(false),
-			GDT_CreatedBy::make('order_by'),
-			GDT_CreatedAt::make('order_at'),
+			GDT_Money::make('order_price_paid')->label('order_price_paid'),
 			GDT_DateTime::make('order_paid')->editable(false)->label('paid_at'),
 			GDT_DateTime::make('order_executed')->editable(false)->label('executed_at'),
+			GDT_Serialize::make('order_item'),
 		);
 	}
 	
@@ -57,6 +62,12 @@ final class GDO_Order extends GDO
 
 	public function redirectFailure() { return Website::redirectMessage($this->href_failure()); }
 	public function redirectSuccess() { return Website::redirectMessage($this->href_success()); }
+	
+	/**
+	 * @return GDO_Address
+	 */
+	public function getAddress() { return $this->getValue('order_address'); }
+	public function getAddressId() { return $this->getVar('order_address'); }
 	
 	/**
 	 * @return GDO_User
@@ -140,16 +151,21 @@ final class GDO_Order extends GDO
 	###############
 	public function executeOrder()
 	{
-// 		$user = $this->getUser();
+		# Exec Job
 		$orderable = $this->getOrderable();
-		
 		$response = $orderable->onOrderPaid();
 
+		# Update Order
 		$this->saveVar('order_executed', Time::getDate());
 		$this->saveValue('order_item', $orderable);
-		
-		GDO_Session::remove('gdo_orderable');
+		$this->updateOrderNum();
 		
 		return GDT_Success::responseWith('msg_order_execute')->add($response)->add($this->redirectSuccess());
+	}
+	
+	private function updateOrderNum()
+	{
+		$subselect = "SELECT IFNULL( order_num, 1, MAX(order_num) + 1) FROM gdo_order";
+		$this->updateQuery()->set("order_num = ( $subselect )")->exec();
 	}
 }

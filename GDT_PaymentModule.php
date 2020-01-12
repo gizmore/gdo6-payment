@@ -6,6 +6,8 @@ use GDO\Core\GDO_Module;
 
 class GDT_PaymentModule extends GDT_ObjectSelect
 {
+	public function defaultLabel() { return $this->label('payment'); }
+	
 	public function __construct()
 	{
 		$this->table(GDO_Module::table());
@@ -13,6 +15,6 @@ class GDT_PaymentModule extends GDT_ObjectSelect
 	
 	public function initChoices()
 	{
-		return $this->choices ? $this : $this->choices(PaymentModule::allModules());
+		return $this->choices ? $this : $this->choices(PaymentModule::allPaymentModules());
 	}
 }

@@ -99,7 +99,16 @@ Im Anhang die Rechnung für die Unterlagen.
 	'pdfbill_number' => 'Rechnungsnummer: %s',
 	'pdfbill_number_hint' => 'Bitte bei Zahlungen und Schriftverkehr stets angeben.',
 	'pdfbill_pay_until' => 'Bitte begleichen Sie den Rechnungsbetrag bis zum %s.',
+	'pdfbill_payment' => 'Zahlungsweise',
 	'pdforder_sum_netto' => 'Summe netto',
-	'pdforder_sum_tax' => 'zzgl. 19% MwSt.',
+	'pdforder_sum_tax' => 'zzgl. %s%% MwSt.',
 	'pdforder_sum_brutto' => 'Summe brutto',
+	######################################################
+	'order_num' => 'Rechnungsnummer',
+	'order_xtoken' => 'Rechnungsverweis',
+	'order_address' => 'Rechnungsadresse',
+	'order_price_paid' => 'Bereits gezahlt',
+	'order_needs_address_first' => 'Bitte erstellen Sie zuerst eine Rechnungsadresse',
+	'div_order_section' => 'Bestelldaten',
+	'msg_order_edited' => 'Die Bestellung wurde bearbeitet.',
 );

@@ -5,6 +5,9 @@ use GDO\Payment\GDO_Order;
 use GDO\Table\MethodQueryTable;
 use GDO\UI\GDT_Button;
 use GDO\User\GDO_User;
+use GDO\Core\GDT_Response;
+use GDO\UI\GDT_Link;
+use GDO\UI\GDT_Bar;
 
 final class YourOrders extends MethodQueryTable
 {
@@ -29,6 +32,17 @@ final class YourOrders extends MethodQueryTable
 			$gdo->gdoColumn('order_executed'),
 			GDT_Button::make('view'),
 		);
+	}
+	
+	public function execute()
+	{
+		return GDT_Response::makeWith(
+			GDT_Bar::makeWith(
+				GDT_Link::make('link_add_address')->href(href('Address', 'AddAddress')),
+				GDT_Link::make('link_own_addresses')->href(href('Address', 'OwnAddresses')),
+				
+			)->horizontal()
+		)->add(parent::execute());
 	}
 	
 }

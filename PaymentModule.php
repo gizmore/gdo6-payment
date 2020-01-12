@@ -5,6 +5,7 @@ use GDO\Core\GDO_Module;
 use GDO\DB\GDT_Decimal;
 use GDO\Date\Time;
 use GDO\UI\GDT_Button;
+use GDO\Form\GDT_Submit;
 
 abstract class PaymentModule extends GDO_Module
 {
@@ -16,13 +17,16 @@ abstract class PaymentModule extends GDO_Module
 	 * @return PaymentModule[]
 	 */
 	public static function allPaymentModules() { return self::$paymentModules; }
-	
+
+	private static $paymentModulesId = [];
+	public static function allPaymentModuleIDs() { return self::$paymentModulesId; }
 
 	public $module_priority = 25;
 
 	public function initModule()
 	{
 		self::$paymentModules[$this->getName()] = $this;
+		self::$paymentModulesId[$this->getID()] = $this;
 		return parent::initModule();
 	}
 	
@@ -55,10 +59,9 @@ abstract class PaymentModule extends GDO_Module
 	 * @param string $href
 	 * @return GDT_Button
 	 */
-	public function makePaymentButton($href)
+	public function makePaymentButton(GDO_Order $order=null)
 	{
-		return GDT_Button::make('buy_'.$this->getName())->href($href)->icon('money');
-// 		return $this->templatePHP('button.php', ['href' => $href]);
+		return GDT_Submit::make('buy_'.$this->getName())->icon('money');
 	}
 	
 	public function renderOrderFragment(GDO_Order $order)
@@ -66,9 +69,9 @@ abstract class PaymentModule extends GDO_Module
 		return '';
 	}
 	
-	public function getFooterHTML()
+	public function getFooterHTML(GDO_Order $order)
 	{
-		return '';
+		return $this->templatePHP('pdf_footer_html.php', ['order' => $order]);
 	}
 	
 	public function displayPaymentMethodName()
@@ -87,4 +90,8 @@ abstract class PaymentModule extends GDO_Module
 		return sprintf('%s-%s-%09d', sitename(), $year, $order->getID());
 	}
 	
+	public function renderChoice()
+	{
+		return $this->displayPaymentMethodName();
+	}
 }

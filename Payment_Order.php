@@ -5,11 +5,11 @@ use GDO\Core\GDOError;
 use GDO\Core\GDO;
 use GDO\Form\GDT_Form;
 use GDO\Form\MethodForm;
-use GDO\UI\GDT_Panel;
 use GDO\Core\GDT_Response;
 use GDO\User\GDO_Session;
-use GDO\Core\GDT_Hook;
 use GDO\UI\GDT_HTML;
+use GDO\Address\GDT_Address;
+use GDO\UI\GDT_Button;
 
 abstract class Payment_Order extends MethodForm
 {
@@ -61,14 +61,16 @@ abstract class Payment_Order extends MethodForm
 	public function renderOrderableForm(Orderable $orderable)
 	{
 		$form = new GDT_Form();
-		$form->addField(); 
+		$form->action(href('Payment', 'Choose'));
+		$form->addField(GDT_Address::make('order_address')->onlyOwn()->emptyLabel('order_needs_address_first')->required()); 
 		foreach (PaymentModule::allPaymentModules() as $module)
 		{
 			if ($orderable->canPayOrderWith($module))
 			{
-				$form->addField($module->makePaymentButton(href('Payment', 'Choose', '&payment='.$module->getName())));
+				$form->addField($module->makePaymentButton());
 			}
 		}
+		$form->addField(GDT_Button::make('link_add_address')->href(href('Address', 'AddAddress', "&rb=".urlencode($_SERVER['REQUEST_URI']))));
 		return GDT_Response::makeWith(GDT_HTML::withHTML($orderable->renderOrderCard()))->add(GDT_Response::makeWith($form));
 	}
 	

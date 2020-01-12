@@ -13,6 +13,9 @@ use GDO\Core\ModuleLoader;
 use GDO\Core\GDT_Serialize;
 use GDO\User\GDO_Session;
 use GDO\Payment\Module_Payment;
+use GDO\Address\GDO_Address;
+use GDO\Util\Strings;
+use GDO\Core\Website;
 /**
  * Step 1 – Choose a payment processor
  * @author gizmore
@@ -38,6 +41,11 @@ final class Choose extends Method
 	 * @var GDO_Order
 	 */
 	private $order;
+
+	/**
+	 * @var GDO_Address
+	 */
+	private $address;
 	
 	/**
 	 * @return Orderable|GDO
@@ -45,33 +53,60 @@ final class Choose extends Method
 	public function getOrderable()
 	{
 		return GDO_Session::get('gdo_orderable');
-// 		return GDO_User::current()->tempGet('gdo_orderable');
+	}
+	
+	public function init()
+	{
+		$this->address = GDO_Address::table()->find(Common::getFormInt('order_address'));
+		
+		foreach (array_keys($_REQUEST) as $k)
+		{
+			if (Strings::startsWith($k, 'buy_'))
+			{
+				$_REQUEST['payment'] = Strings::substrFrom($k, 'buy_');
+			}
+		}
+	}
+	
+	public function hasUserPermission(GDO_User $user)
+	{
+		return $this->address->getCreator() === $user ? true : $this->error('err_invalid_choice');
 	}
 	
 	public function execute()
 	{
-		$this->user = GDO_User::current();
-		if (!($this->orderable = $this->getOrderable()))
-		{
-			return $this->error('err_orderable');
-		}
 		$moduleName = Common::getRequestString('payment');
 		if (!($this->paymentModule = ModuleLoader::instance()->getModule($moduleName)))
 		{
 			return $this->error('err_module', [html($moduleName)]);
 		}
+		
+		if (Common::getFormString('order_module'))
+		{
+			if (GDO_Session::get('gdo_order'))
+			{
+				return Website::redirect(href($this->paymentModule->getName(), 'InitPayment'));
+			}
+		}
+
+		$this->user = GDO_User::current();
+		
+		if (!($this->orderable = $this->getOrderable()))
+		{
+			return $this->error('err_orderable');
+		}
+		
 		$this->order = GDO_Order::blank(array(
 			'order_title_en' => $this->orderable->getOrderTitle('en'),
 			'order_title' => $this->orderable->getOrderTitle(Trans::$ISO),
 			'order_price' => $this->paymentModule->getPrice($this->orderable->getOrderPrice(), $this->orderable->isPriceWithTax()),
 			'order_price_tax' => Module_Payment::instance()->cfgTax(),
 			'order_item' => GDT_Serialize::serialize($this->orderable),
+			'order_address' => $this->address->getID(),
 			'order_module' => $this->paymentModule->getID(),
 		));
-		
+
 		GDO_Session::set('gdo_order', $this->order);
-// 		$this->user->tempSet('gdo_order', $this->order);
-// 		$this->user->recache();
 		
 		$tVars = array(
 			'user' => $this->user,
