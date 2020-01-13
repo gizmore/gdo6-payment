@@ -105,6 +105,7 @@ Im Anhang die Rechnung für die Unterlagen.
 'pdforder_sum_brutto' => 'Summe brutto',
 ######################################################
 'order_num' => 'Rechnungsnummer',
+'order_num_short' => 'R.Nr.',
 'order_xtoken' => 'Rechnungsverweis',
 'order_address' => 'Rechnungsadresse',
 'order_price_paid' => 'Bereits gezahlt',

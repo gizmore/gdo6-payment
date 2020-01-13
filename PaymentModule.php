@@ -6,6 +6,7 @@ use GDO\DB\GDT_Decimal;
 use GDO\Date\Time;
 use GDO\UI\GDT_Button;
 use GDO\Form\GDT_Submit;
+use GDO\Util\Random;
 
 abstract class PaymentModule extends GDO_Module
 {
@@ -87,7 +88,7 @@ abstract class PaymentModule extends GDO_Module
 	public function getTransferPurpose(GDO_Order $order)
 	{
 		$year = Time::getYear($order->getCreated());
-		return sprintf('%s-%s-%09d', sitename(), $year, $order->getID());
+		return sprintf('%s-%s-%s%06d', sitename(), $year, Random::randomKey(4, Random::HEXLOWER), $order->getID());
 	}
 	
 	public function renderChoice()
