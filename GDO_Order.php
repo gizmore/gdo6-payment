@@ -37,7 +37,7 @@ final class GDO_Order extends GDO
 	{
 		return array(
 			GDT_AutoInc::make('order_id'),
-			GDT_UInt::make('order_num'),
+			GDT_UInt::make('order_num')->notNull()->initial('0'),
 			GDT_CreatedBy::make('order_by'),
 			GDT_String::make('order_title'),
 			GDT_String::make('order_title_en')->label('order_title'),
@@ -165,7 +165,7 @@ final class GDO_Order extends GDO
 	
 	private function updateOrderNum()
 	{
-		$subselect = "SELECT IFNULL( order_num, 1, MAX(order_num) + 1) FROM gdo_order";
+		$subselect = "SELECT ( MAX(order_num) + 1 ) FROM gdo_order";
 		$this->updateQuery()->set("order_num = ( $subselect )")->exec();
 	}
 }
