@@ -37,7 +37,7 @@ final class Order extends MethodForm
 		$address = $order->getAddress();
 		$form->addField(GDT_HTML::withHTML($order->getOrderable()->renderCard()));
 		$form->addField(GDT_Divider::make()->label('div_order_section'));
-		$form->addFields($order->gdoColumnsExcept('order_item', 'order_title', 'order_price_tax'));
+		$form->addFields($order->gdoColumnsExcept('order_item', 'order_title'));
 		$form->addFields($address->gdoColumnsExcept('address_id'));
 		$form->addFields(array(
 			GDT_Submit::make('btn_edit'),

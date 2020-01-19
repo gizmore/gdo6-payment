@@ -21,9 +21,10 @@ $card->addFields(array(
 	GDT_String::make('payment_fee')->val($payment->displayPaymentFee()),
 ));
 
-if ($o->isPriceWithTax())
+if (!$gdo->getTax())
 {
 	$card->addFields(array(
+		GDT_Money::make('total_tax')->label('pdforder_sum_tax', ['0'])->value($gdo->getPriceMWST()),
 		GDT_Money::make('total_brutto')->label('pdforder_sum_brutto')->value($gdo->getPrice()),
 	));
 }

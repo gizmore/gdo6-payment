@@ -12,7 +12,6 @@ use GDO\Util\Common;
 use GDO\Core\ModuleLoader;
 use GDO\Core\GDT_Serialize;
 use GDO\User\GDO_Session;
-use GDO\Payment\Module_Payment;
 use GDO\Address\GDO_Address;
 use GDO\Util\Strings;
 use GDO\Core\Website;
@@ -99,8 +98,8 @@ final class Choose extends Method
 		$this->order = GDO_Order::blank(array(
 			'order_title_en' => $this->orderable->getOrderTitle('en'),
 			'order_title' => $this->orderable->getOrderTitle(Trans::$ISO),
-			'order_price' => $this->paymentModule->getPrice($this->orderable->getOrderPrice(), $this->orderable->isPriceWithTax()),
-			'order_price_tax' => Module_Payment::instance()->cfgTax(),
+			'order_price' => $this->paymentModule->getPrice($this->orderable, $this->address),
+			'order_price_tax' => $this->paymentModule->getTax($this->orderable, $this->address),
 			'order_item' => GDT_Serialize::serialize($this->orderable),
 			'order_address' => $this->address->getID(),
 			'order_module' => $this->paymentModule->getID(),

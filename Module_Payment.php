@@ -11,6 +11,7 @@ use GDO\Language\GDT_Language;
 use GDO\Address\Module_Address;
 use GDO\UI\GDT_Divider;
 use GDO\Date\GDT_Duration;
+use GDO\DB\GDT_Checkbox;
 
 final class Module_Payment extends GDO_Module
 {
@@ -34,6 +35,7 @@ final class Module_Payment extends GDO_Module
 			GDT_Language::make('billing_mail_language')->notNull()->initial(GWF_LANGUAGE),
 			GDT_Email::make('billing_mail_sender')->initial(GWF_BOT_EMAIL),
 			GDT_Email::make('billing_mail_reciver'),
+			GDT_Checkbox::make('payment_feature_vat_no_tax')->initial('1'),
 		);
 	}
 	
@@ -41,6 +43,7 @@ final class Module_Payment extends GDO_Module
 	public function cfgTax() { return $this->getConfigValue('tax_mwst'); }
 	public function cfgTaxFactor() { return $this->cfgTax() / 100.0; }
 	public function cfgVat() { return $this->getConfigVar('vat'); }
+	public function cfgVatNoTax() { return $this->getConfigValue('payment_feature_vat_no_tax'); }
 	public function cfgVatOffice() { return $this->getConfigVar('vat_office'); }
 	public function cfgPayTime() { return $this->getConfigValue('pay_time'); }
 	public function cfgMailLanguage() { return $this->getConfigVar('billing_mail_language'); }

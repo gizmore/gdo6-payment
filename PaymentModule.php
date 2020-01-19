@@ -7,6 +7,7 @@ use GDO\Date\Time;
 use GDO\UI\GDT_Button;
 use GDO\Form\GDT_Submit;
 use GDO\Util\Random;
+use GDO\Address\GDO_Address;
 
 abstract class PaymentModule extends GDO_Module
 {
@@ -40,15 +41,35 @@ abstract class PaymentModule extends GDO_Module
 	
 	public function cfgFeeBuy() { return $this->getConfigValue('fee_buy'); }
 	
-	public function getPrice($price, $isWithTax=true)
+	#			'order_price' => $this->paymentModule->getPrice($this->orderable->getOrderPrice(), $this->orderable->isPriceWithTax(), $this->address->getVAT()),
+	
+	public function getPrice(Orderable $orderable, GDO_Address $address)
 	{
+		$price = $orderable->getOrderPrice();
 		$price = round(($this->cfgFeeBuy() + 1.00) * floatval($price), 2);
-		if (!$isWithTax)
+		if (!$orderable->isPriceWithTax())
 		{
-			$mwst = Module_Payment::instance()->cfgTaxFactor();
-			$price += $price * $mwst;
+			if (!($address->getVAT() && Module_Payment::instance()->cfgVatNoTax()))
+			{
+				$mwst = Module_Payment::instance()->cfgTaxFactor();
+				$price += $price * $mwst;
+			}
 		}
 		return $price;
+	}
+	
+	public function getTax(Orderable $orderable, GDO_Address $address)
+	{
+		$mp = Module_Payment::instance();
+		$tax19 = $mp->cfgTax();
+		if ($mp->cfgVatNoTax() && $address->getVAT())
+		{
+			return 0;
+		}
+		else
+		{
+			return $tax19;
+		}
 	}
 	
 	public function displayPaymentFee()
