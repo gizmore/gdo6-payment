@@ -31,7 +31,7 @@ final class PDFBill extends Method
 	public function gdoParameters()
 	{
 		return array(
-			GDT_Object::make('id')->table(GDO_Order::table()),
+			GDT_Object::make('id')->notNull()->table(GDO_Order::table()),
 		);
 	}
 	
@@ -41,7 +41,15 @@ final class PDFBill extends Method
 		{
 			return true;
 		}
-		return $this->getOrder()->getCreator() === $user ? true : $this->error('err_order');
+		try
+		{
+			if ($order = $this->getOrder())
+			{
+				return $order->getCreator() === $user ? true : $this->error('err_order');
+			}
+		}
+		catch (\Exception $e) {}
+		return $this->error('err_no_permission');
 	}
 	
 	public function execute()

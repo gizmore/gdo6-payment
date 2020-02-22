@@ -25,7 +25,11 @@ final class ViewOrder extends Method
 	
 	public function hasPermission(GDO_User $user)
 	{
-		return $this->getOrder()->getCreator() === $user;
+		if ($order = $this->getOrder())
+		{
+			return $order->getCreator() === $user;
+		}
+		return $this->error('err_no_permission');
 	}
 	
 	public function execute()
