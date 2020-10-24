@@ -60,7 +60,7 @@ abstract class Payment_Order extends MethodForm
 	
 	public function renderOrderableForm(Orderable $orderable)
 	{
-		$form = new GDT_Form();
+		$form = GDT_Form::make('form');
 		$form->action(href('Payment', 'Choose'));
 		$form->addField(GDT_Address::make('order_address')->onlyOwn()->emptyLabel('order_needs_address_first')->required()); 
 		foreach (PaymentModule::allPaymentModules() as $module)

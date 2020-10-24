@@ -24,7 +24,7 @@ $order instanceof GDO_Order;
 
 echo $order->renderCard();
 
-$form = GDT_Form::make();
+$form = GDT_Form::make('form');
 $form->addFields(array(
 	GDT_Hidden::make('order_address')->initial($order->getAddressId()),
 	GDT_Hidden::make('order_module')->initial($payment->getName()),

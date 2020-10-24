@@ -8,10 +8,17 @@ class GDT_Money extends GDT_Decimal
 	public static $CURR = '€';
 	public static $CURRENCY = 'EUR';
 	
+	public $icon = 'money';
+
 	public $digitsBefore = 13;
 	public $digitsAfter = 2;
 	
 	public function defaultLabel() { return $this->label('price'); }
+	
+	public function __construct()
+	{
+	    $this->initial('0.0');
+	}
 	
 	public function renderCell()
 	{

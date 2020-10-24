@@ -130,7 +130,7 @@ final class GDO_Order extends GDO
 	
 	public function displayMoney($price)
 	{
-		return $this->gdoColumnCopy('order_price')->val($price)->renderCell();
+		return $this->gdoColumnCopy('order_price')->var($price)->renderCell();
 	}
 	
 	##############

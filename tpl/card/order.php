@@ -17,8 +17,8 @@ $card->subtitle($gdo->getTitle());
 
 $card->addFields(array(
 	GDT_Money::make('price')->value($o->getOrderPrice()),
-	GDT_String::make('payment')->val($payment->displayPaymentMethodName()),
-	GDT_String::make('payment_fee')->val($payment->displayPaymentFee()),
+	GDT_String::make('payment')->var($payment->displayPaymentMethodName()),
+	GDT_String::make('payment_fee')->var($payment->displayPaymentFee()),
 ));
 
 if (!$gdo->getTax())
