@@ -27,7 +27,7 @@ final class Module_Payment extends GDO_Module
 	{
 		return array(
 			GDT_String::make('company_name')->initial(sitename()),
-			GDT_Decimal::make('tax_mwst')->digits(3, 1)->initial("19.0"),
+			GDT_Decimal::make('tax_mwst')->digits(3, 1)->initial("16.0"),
 			GDT_String::make('vat')->max(24)->initial('0000000000'),
 			GDT_String::make('vat_office')->initial(Module_Address::instance()->cfgCity()),
 			GDT_Duration::make('pay_time')->initial((string)(60*60*24*14)),
