@@ -6,7 +6,7 @@ use GDO\Core\GDO;
 use GDO\Form\GDT_Form;
 use GDO\Form\MethodForm;
 use GDO\Core\GDT_Response;
-use GDO\User\GDO_Session;
+use GDO\Session\GDO_Session;
 use GDO\UI\GDT_HTML;
 use GDO\Address\GDT_Address;
 use GDO\UI\GDT_Button;

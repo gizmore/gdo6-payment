@@ -2,7 +2,7 @@
 namespace GDO\Payment;
 
 use GDO\Core\Method;
-use GDO\User\GDO_Session;
+use GDO\Session\GDO_Session;
 
 abstract class MethodPayment extends Method
 {

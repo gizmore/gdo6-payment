@@ -11,7 +11,7 @@ use GDO\User\GDO_User;
 use GDO\Util\Common;
 use GDO\Core\ModuleLoader;
 use GDO\Core\GDT_Serialize;
-use GDO\User\GDO_Session;
+use GDO\Session\GDO_Session;
 use GDO\Address\GDO_Address;
 use GDO\Util\Strings;
 use GDO\Core\Website;
