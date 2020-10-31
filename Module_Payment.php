@@ -30,7 +30,7 @@ final class Module_Payment extends GDO_Module
 			GDT_Decimal::make('tax_mwst')->digits(3, 1)->initial("16.0"),
 			GDT_String::make('vat')->max(24)->initial('0000000000'),
 			GDT_String::make('vat_office')->initial(Module_Address::instance()->cfgCity()),
-			GDT_Duration::make('pay_time')->initial((string)(60*60*24*14)),
+			GDT_Duration::make('pay_time')->initial('14d'),
 			GDT_Divider::make('div_billing_mails'),
 			GDT_Language::make('billing_mail_language')->notNull()->initial(GWF_LANGUAGE),
 			GDT_Email::make('billing_mail_sender')->initial(GWF_BOT_EMAIL),
