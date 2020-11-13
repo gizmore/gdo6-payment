@@ -2,7 +2,8 @@
 namespace GDO\Payment;
 
 use GDO\Core\GDO_Module;
-use GDO\UI\GDT_Bar;
+use GDO\UI\GDT_Link;
+use GDO\UI\GDT_Page;
 use GDO\Date\Time;
 use GDO\DB\GDT_Decimal;
 use GDO\DB\GDT_String;
@@ -13,19 +14,23 @@ use GDO\UI\GDT_Divider;
 use GDO\Date\GDT_Duration;
 use GDO\DB\GDT_Checkbox;
 
+/**
+ * Base Payment module.
+ * @author gizmore
+ */
 final class Module_Payment extends GDO_Module
 {
 	public $module_priority = 15;
-	public function getDependencies() { return array('Address', 'TCPDF'); }
+	public function getDependencies() { return ['Address', 'TCPDF']; }
 
 	public function href_administrate_module() { return href('Payment', 'Orders'); }
 	
-	public function getClasses() { return ['GDO\Payment\GDO_Order']; }
+	public function getClasses() { return [GDO_Order::class]; }
 	public function onLoadLanguage() { $this->loadLanguage('lang/payment'); }
 	
 	public function getConfig()
 	{
-		return array(
+		return [
 			GDT_String::make('company_name')->initial(sitename()),
 			GDT_Decimal::make('tax_mwst')->digits(3, 1)->initial("16.0"),
 			GDT_String::make('vat')->max(24)->initial('0000000000'),
@@ -35,8 +40,9 @@ final class Module_Payment extends GDO_Module
 			GDT_Language::make('billing_mail_language')->notNull()->initial(GWF_LANGUAGE),
 			GDT_Email::make('billing_mail_sender')->initial(GWF_BOT_EMAIL),
 			GDT_Email::make('billing_mail_reciver'),
-			GDT_Checkbox::make('payment_feature_vat_no_tax')->initial('1'),
-		);
+		    GDT_Checkbox::make('payment_feature_vat_no_tax')->initial('1'),
+		    GDT_Checkbox::make('right_bar')->initial('1'),
+		];
 	}
 	
 	public function cfgCompanyName() { return $this->getConfigVar('company_name'); }
@@ -49,10 +55,15 @@ final class Module_Payment extends GDO_Module
 	public function cfgMailLanguage() { return $this->getConfigVar('billing_mail_language'); }
 	public function cfgMailTo() { return $this->getConfigVar('billing_mail_reciver'); }
 	public function cfgMailFrom() { return $this->getConfigVar('billing_mail_sender'); }
+	public function cfgRightBar() { return $this->getConfigValue('right_bar'); }
 	
-	public function hookRightBar(GDT_Bar $navbar)
+	public function onInitSidebar()
 	{
-		$this->templatePHP('right_sidebar.php', ['bar' => $navbar]);
+// 	    if ($this->cfgRightBar())
+	    {
+	        $bar = GDT_Page::$INSTANCE->rightNav;
+	        $bar->addField(GDT_Link::make('link_your_orders')->href(href('Payment', 'YourOrders')));
+	    }
 	}
 	
 	public function onExecuteOrder(PaymentModule $module, GDO_Order $order)
