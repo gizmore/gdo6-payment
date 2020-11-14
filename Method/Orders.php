@@ -16,28 +16,35 @@ use GDO\Address\GDO_Address;
 final class Orders extends MethodQueryTable
 {
 	public function getPermission() { return 'staff'; }
-	public function getQuery()
+
+	public function gdoTable()
 	{
-		return GDO_Order::table()->select()->joinObject('order_address', 'LEFT JOIN');
+	    return GDO_Order::table();
 	}
 	
-	public function getHeaders()
+	public function getQuery()
+	{
+		return $this->gdoTable()->select()->joinObject('order_address', 'LEFT JOIN');
+	}
+	
+	public function gdoHeaders()
 	{
 		$gdo = GDO_Order::table();
 		$add = GDO_Address::table();
-		return array(
-			GDT_EditButton::make(),
-			$gdo->gdoColumn('order_id'),
-			$gdo->gdoColumn('order_num')->label('order_num_short'),
-			$add->gdoColumn('address_vat'),
-			$add->gdoColumn('address_company'),
-			$add->gdoColumn('address_name'),
-			$gdo->gdoColumn('order_by'),
-			$gdo->gdoColumn('order_at'),
-			$gdo->gdoColumn('order_title'),
-			$gdo->gdoColumn('order_price'),
-			$gdo->gdoColumn('order_paid'),
-			$gdo->gdoColumn('order_executed'),
-		);
+		return [
+		    GDT_EditButton::make(),
+		    $gdo->gdoColumn('order_id'),
+		    $gdo->gdoColumn('order_num')->label('order_num_short'),
+		    $add->gdoColumn('address_vat'),
+		    $add->gdoColumn('address_company'),
+		    $add->gdoColumn('address_name'),
+		    $gdo->gdoColumn('order_by'),
+		    $gdo->gdoColumn('order_at'),
+		    $gdo->gdoColumn('order_title'),
+		    $gdo->gdoColumn('order_price'),
+		    $gdo->gdoColumn('order_paid'),
+		    $gdo->gdoColumn('order_executed'),
+		];
 	}
+   
 }

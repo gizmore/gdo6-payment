@@ -13,12 +13,17 @@ final class YourOrders extends MethodQueryTable
 {
 	public function isUserRequired() { return true; }
 	
+	public function gdoTable()
+	{
+	    return GDO_Order::table();
+	}
+	
 	public function getQuery()
 	{
 		return GDO_Order::table()->select()->where('order_by='.GDO_User::current()->getID());
 	}
 	
-	public function getHeaders()
+	public function gdoHeaders()
 	{
 		$gdo = GDO_Order::table();
 		return array(
