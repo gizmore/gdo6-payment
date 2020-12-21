@@ -11,7 +11,7 @@ class GDT_Money extends GDT_Decimal
 	public $icon = 'money';
 
 	public $digitsBefore = 13;
-	public $digitsAfter = 2;
+	public $digitsAfter = 4;
 	
 	public function defaultLabel() { return $this->label('price'); }
 	
