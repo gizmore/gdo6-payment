@@ -15,7 +15,7 @@ class GDT_Money extends GDT_Decimal
 	
 	public function defaultLabel() { return $this->label('price'); }
 	
-	public function __construct()
+	protected function __construct()
 	{
 	    $this->initial('0.0');
 	}

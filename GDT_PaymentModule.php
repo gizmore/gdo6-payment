@@ -8,7 +8,7 @@ class GDT_PaymentModule extends GDT_ObjectSelect
 {
 	public function defaultLabel() { return $this->label('payment'); }
 	
-	public function __construct()
+	protected function __construct()
 	{
 		$this->table(GDO_Module::table());
 	}
