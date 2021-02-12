@@ -40,10 +40,10 @@ final class Order extends MethodForm
 		$form->addFields($order->gdoColumnsExcept('order_item', 'order_title'));
 		$form->addFields($address->gdoColumnsExcept('address_id'));
 		$form->addFields(array(
-			GDT_Submit::make('btn_edit'),
-			GDT_Submit::make('btn_execute')->disabled($order->isPaid()),
 			GDT_AntiCSRF::make(),
 		));
+		$form->actions()->addField(GDT_Submit::make('btn_edit'));
+		$form->actions()->addField(GDT_Submit::make('btn_execute')->disabled($order->isPaid()));
 	}
 
 	public function onSubmit_btn_execute()
