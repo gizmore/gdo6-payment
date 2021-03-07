@@ -3,10 +3,15 @@ namespace GDO\Payment;
 
 use GDO\DB\GDT_Decimal;
 
+/**
+ * A money column.
+ * @author gizmore
+ */
 class GDT_Money extends GDT_Decimal
 {
 	public static $CURR = '€';
 	public static $CURRENCY = 'EUR';
+	public static $CURR_DIGITS = 2;
 	
 	public $icon = 'money';
 
@@ -15,11 +20,6 @@ class GDT_Money extends GDT_Decimal
 	
 	public function defaultLabel() { return $this->label('price'); }
 	
-	protected function __construct()
-	{
-	    $this->initial('0.0');
-	}
-	
 	public function renderCell()
 	{
 		return self::renderPrice($this->getValue());
@@ -27,7 +27,8 @@ class GDT_Money extends GDT_Decimal
 	
 	public static function renderPrice($price)
 	{
-		return $price === null ? '---' : sprintf('%s%.02f', self::$CURR, $price);
+		return $price === null ? '---' :
+		  sprintf('%s%.0'.self::$CURR_DIGITS.'f', self::$CURR, $price);
 	}
 	
 }

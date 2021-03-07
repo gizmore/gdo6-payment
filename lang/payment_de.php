@@ -112,4 +112,5 @@ Im Anhang die Rechnung für die Unterlagen.
 'order_needs_address_first' => 'Bitte erstellen Sie zuerst eine Rechnungsadresse',
 'div_order_section' => 'Bestelldaten',
 'msg_order_edited' => 'Die Bestellung wurde bearbeitet.',
+'purchase' => 'Kaufen',
 );

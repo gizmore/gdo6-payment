@@ -12,15 +12,21 @@ use GDO\Date\Time;
 use GDO\Payment\Module_Payment;
 use GDO\UI\GDT_Divider;
 
+/**
+ * Edit an order. Staff method.
+ * @author gizmore
+ * @version 6.10.1
+ * @since 6.3.1
+ */
 final class Order extends MethodForm
 {
 	public function getPermission() { return 'staff'; }
 	
 	public function gdoParameters()
 	{
-		return array(
+		return [
 			GDT_Object::make('id')->table(GDO_Order::table())->notNull(),
-		);
+		];
 	}
 	
 	/**
@@ -39,9 +45,7 @@ final class Order extends MethodForm
 		$form->addField(GDT_Divider::make()->label('div_order_section'));
 		$form->addFields($order->gdoColumnsExcept('order_item', 'order_title'));
 		$form->addFields($address->gdoColumnsExcept('address_id'));
-		$form->addFields(array(
-			GDT_AntiCSRF::make(),
-		));
+		$form->addField(GDT_AntiCSRF::make());
 		$form->actions()->addField(GDT_Submit::make('btn_edit'));
 		$form->actions()->addField(GDT_Submit::make('btn_execute')->disabled($order->isPaid()));
 	}
@@ -49,10 +53,10 @@ final class Order extends MethodForm
 	public function onSubmit_btn_execute()
 	{
 		$order = $this->getOrder();
-		$order->saveVars(array(
+		$order->saveVars([
 			'order_paid' => Time::getDate(),
 			'order_price_paid' => $order->getPrice(),
-		));
+		]);
 		Module_Payment::instance()->onExecuteOrder($order->getPaymentModule(), $order);
 		return $this->message('msg_order_execute')->add($this->renderPage());
 	}

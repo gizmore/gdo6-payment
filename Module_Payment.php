@@ -16,7 +16,18 @@ use GDO\DB\GDT_Checkbox;
 
 /**
  * Base Payment module.
+ * Comes with GDO_Order class and Orderable trait for easy making GDO purchasable.
+ * Multiple payment provider modules are / will be available.
+ * It is advised to use gdo6-session-db when using payment modules,
+ * as orderables are stored in the session temporarily.
+ * 
  * @author gizmore
+ * @version 6.10.1
+ * @since 6.3.0
+ * 
+ * @see Module_PaymentBank
+ * @see Module_PaymentPaypal
+ * @see Module_PaymentCredits
  */
 final class Module_Payment extends GDO_Module
 {
@@ -59,7 +70,7 @@ final class Module_Payment extends GDO_Module
 	
 	public function onInitSidebar()
 	{
-// 	    if ($this->cfgRightBar())
+	    if ($this->cfgRightBar())
 	    {
 	        $bar = GDT_Page::$INSTANCE->rightNav;
 	        $bar->addField(GDT_Link::make('link_your_orders')->href(href('Payment', 'YourOrders')));
@@ -68,9 +79,9 @@ final class Module_Payment extends GDO_Module
 	
 	public function onExecuteOrder(PaymentModule $module, GDO_Order $order)
 	{
-		$order->saveVars(array(
+		$order->saveVars([
 			'order_paid' => Time::getDate(),
-		));
+		]);
 		$order->executeOrder();
 		BillingMails::sendBillPaidMails($order);
 		return $this->message('msg_order_execute');
