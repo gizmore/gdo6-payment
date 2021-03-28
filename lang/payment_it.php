@@ -113,4 +113,5 @@ Im Anhang die Rechnung für die Unterlagen.
 'div_order_section' => 'Bestelldaten',
 'msg_order_edited' => 'Die Bestellung wurde bearbeitet.',
 'purchase' => 'Comprare',
+'err_order_cancel' => 'Sie können diese Bestellung nicht mehr stornieren.',
 );
