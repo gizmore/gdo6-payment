@@ -10,7 +10,7 @@ use GDO\Language\GDO_Language;
 
 class PaymentPDF extends GDOTCPDF
 {
-	private $iso = GWF_LANGUAGE;
+	private $iso = GDO_LANGUAGE;
 	private $user;
 	private $order;
 	
