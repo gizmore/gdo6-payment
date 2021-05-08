@@ -58,7 +58,7 @@ final class Order extends MethodForm
 			'order_price_paid' => $order->getPrice(),
 		]);
 		Module_Payment::instance()->onExecuteOrder($order->getPaymentModule(), $order);
-		return $this->message('msg_order_execute')->add($this->renderPage());
+		return $this->message('msg_order_execute')->addField($this->renderPage());
 	}
 
 	public function onSubmit_btn_edit()
@@ -71,7 +71,7 @@ final class Order extends MethodForm
 			$address->saveVars($form->getFormData());
 		}
 		$this->resetForm();
-		return $this->message('msg_order_edited')->add($this->renderPage());
+		return $this->message('msg_order_edited')->addField($this->renderPage());
 	}
 	
 }

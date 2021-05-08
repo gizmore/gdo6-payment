@@ -47,7 +47,7 @@ final class YourOrders extends MethodQueryTable
 				GDT_Link::make('link_own_addresses')->href(href('Address', 'OwnAddresses')),
 				
 			)->horizontal()
-		)->add(parent::execute());
+		)->addField(parent::execute());
 	}
 	
 }

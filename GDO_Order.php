@@ -160,7 +160,7 @@ final class GDO_Order extends GDO
 		$this->saveValue('order_item', $orderable);
 		$this->updateOrderNum();
 		
-		return GDT_Success::responseWith('msg_order_execute')->add($response)->add($this->redirectSuccess());
+		return GDT_Success::responseWith('msg_order_execute')->addField($response)->addField($this->redirectSuccess());
 	}
 	
 	private function updateOrderNum()
