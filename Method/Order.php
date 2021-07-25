@@ -11,6 +11,7 @@ use GDO\Form\GDT_Submit;
 use GDO\Date\Time;
 use GDO\Payment\Module_Payment;
 use GDO\UI\GDT_Divider;
+use GDO\Util\Common;
 
 /**
  * Edit an order. Staff method.
@@ -21,6 +22,8 @@ use GDO\UI\GDT_Divider;
 final class Order extends MethodForm
 {
 	public function getPermission() { return 'staff'; }
+	
+	public function isTrivial() { return false; }	
 	
 	public function gdoParameters()
 	{
@@ -34,7 +37,7 @@ final class Order extends MethodForm
 	 */
 	public function getOrder()
 	{
-		return $this->gdoParameterValue('id');
+		return GDO_Order::table()->find(Common::getRequestString('id'));
 	}
 	
 	public function createForm(GDT_Form $form)
