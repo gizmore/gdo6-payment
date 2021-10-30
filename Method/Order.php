@@ -16,14 +16,16 @@ use GDO\Util\Common;
 /**
  * Edit an order. Staff method.
  * @author gizmore
- * @version 6.10.1
+ * @version 6.10.6
  * @since 6.3.1
  */
 final class Order extends MethodForm
 {
 	public function getPermission() { return 'staff'; }
 	
-	public function isTrivial() { return false; }	
+	public function isTrivial() { return false; }
+	
+	public function showInSitemap() { return false; }
 	
 	public function gdoParameters()
 	{
