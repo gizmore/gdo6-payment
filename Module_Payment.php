@@ -22,7 +22,7 @@ use GDO\DB\GDT_Checkbox;
  * as orderables are stored in the session temporarily.
  * 
  * @author gizmore
- * @version 6.10.1
+ * @version 6.10.6
  * @since 6.3.0
  * 
  * @see Module_PaymentBank
@@ -32,7 +32,10 @@ use GDO\DB\GDT_Checkbox;
 final class Module_Payment extends GDO_Module
 {
 	public $module_priority = 15;
-	public function getDependencies() { return ['Address', 'TCPDF']; }
+	public function getDependencies()
+	{
+		return ['Address', 'TCPDF'];
+	}
 
 	public function href_administrate_module() { return href('Payment', 'Orders'); }
 	
