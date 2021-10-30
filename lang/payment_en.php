@@ -114,4 +114,8 @@ Im Anhang die Rechnung für die Unterlagen.
 'msg_order_edited' => 'Die Bestellung wurde bearbeitet.',
 'purchase' => 'Purchase',
 'err_order_cancel' => 'Sie können diese Bestellung nicht mehr stornieren.',
+#v6.10.6
+'list_payment_yourorders' => 'Your %s orders',
+'list_address_ownaddresses' => 'Your %s addresses'
+    
 );
