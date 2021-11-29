@@ -13,6 +13,7 @@ use GDO\Address\Module_Address;
 use GDO\UI\GDT_Divider;
 use GDO\Date\GDT_Duration;
 use GDO\DB\GDT_Checkbox;
+use GDO\User\GDO_User;
 
 /**
  * Base Payment module.
@@ -75,8 +76,11 @@ final class Module_Payment extends GDO_Module
 	{
 	    if ($this->cfgRightBar())
 	    {
-	        $bar = GDT_Page::$INSTANCE->rightNav;
-	        $bar->addField(GDT_Link::make('link_your_orders')->href(href('Payment', 'YourOrders')));
+	    	if (GDO_User::current()->isUser())
+	    	{
+		        $bar = GDT_Page::$INSTANCE->rightNav;
+		        $bar->addField(GDT_Link::make('link_your_orders')->href(href('Payment', 'YourOrders')));
+	    	}
 	    }
 	}
 	
