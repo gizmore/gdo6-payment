@@ -74,7 +74,7 @@ final class Choose extends Method
 		
 		foreach (array_keys($_REQUEST) as $k)
 		{
-			if (Strings::startsWith($k, 'buy_'))
+			if (str_starts_with($k, 'buy_'))
 			{
 				$_REQUEST['payment'] = Strings::substrFrom($k, 'buy_');
 			}
