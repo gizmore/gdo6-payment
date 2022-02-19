@@ -70,7 +70,7 @@ abstract class Payment_Order extends MethodForm
 				$form->addField($module->makePaymentButton());
 			}
 		}
-		$form->addField(GDT_Button::make('link_add_address')->href(href('Address', 'AddAddress', "&rb=".urlencode($_SERVER['REQUEST_URI']))));
+		$form->addField(GDT_Button::make('link_add_address')->href(href('Address', 'AddAddress', "&rb=".($_SERVER['REQUEST_URI']))));
 		return GDT_Response::makeWith(GDT_HTML::withHTML($orderable->renderOrderCard()))->addField(GDT_Response::makeWith($form));
 	}
 	
